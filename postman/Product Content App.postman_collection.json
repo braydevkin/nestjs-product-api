@@ -1,0 +1,210 @@
+{
+	"info": {
+		"_postman_id": "a086ef12-a119-4a78-9cdc-50803a61ed2c",
+		"name": "Product Content App",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "25548249",
+		"_collection_link": "https://irbano.postman.co/workspace/Team-Workspace~515b5663-1090-4a79-8133-872b158d89ae/collection/25548249-a086ef12-a119-4a78-9cdc-50803a61ed2c?action=share&source=collection_link&creator=25548249"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Sign In",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"brayan.molk6@gmail.com\",\r\n    \"password\": \"123456\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{3000}}/signin",
+							"host": [
+								"{{3000}}"
+							],
+							"path": [
+								"signin"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Sign Up",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"brayan.molk6@gmail.com\",\r\n    \"password\": \"123456\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{3000}}/signup",
+							"host": [
+								"{{3000}}"
+							],
+							"path": [
+								"signup"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Product",
+			"item": [
+				{
+					"name": "Delete Product",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NWQ0YzkxM2JjNDdkZGIwNWIwODk1OWIiLCJ1c2VybmFtZSI6ImJyYXlhbi5tb2xrNkBnbWFpbC5jb20iLCJpYXQiOjE3MDg0NDM5MjYsImV4cCI6MTcwODQ0NzUyNn0.NbJUwNXLydLyk96fTPa6shRYVINNzq7iruPjTxTXLrM",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "access_token",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{3000}}/products/65d4c5f1edea8f90a8cc2c6e",
+							"host": [
+								"{{3000}}"
+							],
+							"path": [
+								"products",
+								"65d4c5f1edea8f90a8cc2c6e"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Products",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NWQ0YzkxM2JjNDdkZGIwNWIwODk1OWIiLCJ1c2VybmFtZSI6ImJyYXlhbi5tb2xrNkBnbWFpbC5jb20iLCJpYXQiOjE3MDg0NDM5MjYsImV4cCI6MTcwODQ0NzUyNn0.NbJUwNXLydLyk96fTPa6shRYVINNzq7iruPjTxTXLrM",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{3000}}/products",
+							"host": [
+								"{{3000}}"
+							],
+							"path": [
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Sumarry",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NWQ0YzkxM2JjNDdkZGIwNWIwODk1OWIiLCJ1c2VybmFtZSI6ImJyYXlhbi5tb2xrNkBnbWFpbC5jb20iLCJpYXQiOjE3MDg0NDM5MjYsImV4cCI6MTcwODQ0NzUyNn0.NbJUwNXLydLyk96fTPa6shRYVINNzq7iruPjTxTXLrM",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{3000}}/summary",
+							"host": [
+								"{{3000}}"
+							],
+							"path": [
+								"summary"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Contentful API",
+			"item": [
+				{
+					"name": "Get Product",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://cdn.contentful.com/spaces/9xs1613l9f7v/environments/master/entries?access_token=I-ThsT55eE_B3sCUWEQyDT4VqVO3x__20ufuie9usns&content_type=product",
+							"protocol": "https",
+							"host": [
+								"cdn",
+								"contentful",
+								"com"
+							],
+							"path": [
+								"spaces",
+								"9xs1613l9f7v",
+								"environments",
+								"master",
+								"entries"
+							],
+							"query": [
+								{
+									"key": "access_token",
+									"value": "I-ThsT55eE_B3sCUWEQyDT4VqVO3x__20ufuie9usns"
+								},
+								{
+									"key": "content_type",
+									"value": "product"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

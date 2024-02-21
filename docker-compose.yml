@@ -1,0 +1,88 @@
+version: '3.5'
+
+services:
+  mongo:
+    image: mongo
+    restart: always
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=${MONGO_INITDB_ROOT_USERNAME}
+      - MONGO_INITDB_ROOT_PASSWORD=${MONGO_INITDB_ROOT_PASSWORD}
+    ports:
+      - '27017:27017'
+    volumes:
+      - product-app-mongodb:/database/mongodb
+    healthcheck:
+      test: echo 'db.runCommand("ping").ok' | mongo mongo:27017/test --quiet
+      interval: 10s
+      timeout: 10s
+      retries: 5
+      start_period: 40s
+    networks:
+      - product-app-networks
+
+  mongo-express:
+    image: mongo-express
+    ports:
+      - 8081:8081
+    environment:
+      - ME_CONFIG_BASICAUTH_USERNAME=${ME_CONFIG_BASICAUTH_USERNAME}
+      - ME_CONFIG_BASICAUTH_PASSWORD=${ME_CONFIG_BASICAUTH_PASSWORD}
+      - ME_CONFIG_MONGODB_PORT=${ME_CONFIG_MONGODB_PORT}
+      - ME_CONFIG_MONGODB_ADMINUSERNAME=${ME_CONFIG_MONGODB_ADMINUSERNAME}
+      - ME_CONFIG_MONGODB_ADMINPASSWORD=${ME_CONFIG_MONGODB_ADMINPASSWORD}
+      - ME_CONFIG_MONGODB_SERVER=${ME_CONFIG_MONGODB_SERVER}
+    links:
+      - mongo
+    networks:
+      - product-app-networks
+
+  redis:
+    image: 'redis:alpine'
+    restart: always
+    environment:
+      REDIS_REPLICATION_MODE: 'master'
+      REDIS_PASSWORD: '${REDIS_PASSWORD}'
+      REDIS_PORT: '${REDIS_PORT}'
+    expose:
+      - '${REDIS_PORT}'
+    ports:
+      - '${REDIS_PORT}:${REDIS_PORT}'
+    volumes:
+      - products-app-redis:/data
+    networks:
+      - product-app-networks
+    command: /bin/sh -c "redis-server --requirepass $$REDIS_PASSWORD --port $$REDIS_PORT --appendonly yes"
+    healthcheck:
+      test: ['CMD', 'redis-cli', '--raw', 'incr', 'ping']
+      timeout: 20s
+      retries: 10
+
+  app:
+    image: product-api-content
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    volumes:
+      - .:/app
+    env_file: '.env'
+    ports:
+      - '3000:3000'
+    command:
+      - sh
+      - -c
+      - |
+        echo "Running App"
+        yarn install --frozen-lockfile
+        yarn start:dev
+    depends_on:
+      - mongo
+    networks:
+      - product-app-networks
+volumes:
+  product-app-mongodb:
+    driver: local
+  products-app-redis:
+    driver: local
+networks:
+  product-app-networks:
+    driver: bridge
